@@ -7,7 +7,7 @@ import {
   TranslatableString,
   WrapIfAdditionalTemplateProps,
 } from '@rjsf/utils';
-import { FormControl, FormLabel, Grid, GridItem, Input } from '@chakra-ui/react';
+import { Field, Grid, GridItem, Input } from '@chakra-ui/react';
 
 export default function WrapIfAdditionalTemplate<
   T = any,
@@ -47,10 +47,10 @@ export default function WrapIfAdditionalTemplate<
   return (
     <Grid key={`${id}-key`} className={classNames} style={style} alignItems='center' gap={2}>
       <GridItem>
-        <FormControl isRequired={required}>
-          <FormLabel htmlFor={`${id}-key`} id={`${id}-key-label`}>
+        <Field.Root isRequired={required}>
+          <Field.Label htmlFor={`${id}-key`} id={`${id}-key-label`}>
             {keyLabel}
-          </FormLabel>
+          </Field.Label>
           <Input
             defaultValue={label}
             disabled={disabled || readonly}
@@ -60,7 +60,7 @@ export default function WrapIfAdditionalTemplate<
             type='text'
             mb={1}
           />
-        </FormControl>
+        </Field.Root>
       </GridItem>
       <GridItem>{children}</GridItem>
       <GridItem>

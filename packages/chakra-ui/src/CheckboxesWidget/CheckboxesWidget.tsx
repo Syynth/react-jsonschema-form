@@ -1,5 +1,5 @@
-import { FocusEvent } from 'react';
-import { CheckboxGroup, Checkbox, FormLabel, FormControl, Text, Stack } from '@chakra-ui/react';
+import { FocusEvent, FormEvent } from 'react';
+import { CheckboxGroup, Field, Text, Stack } from '@chakra-ui/react';
 import {
   ariaDescribedByIds,
   enumOptionsIndexForValue,
@@ -12,6 +12,7 @@ import {
   StrictRJSFSchema,
   WidgetProps,
 } from '@rjsf/utils';
+import { Checkbox } from '../snippets/checkbox';
 import { getChakra } from '../utils';
 
 export default function CheckboxesWidget<
@@ -47,22 +48,25 @@ export default function CheckboxesWidget<
   const selectedIndexes = enumOptionsIndexForValue<S>(value, enumOptions, true) as string[];
 
   return (
-    <FormControl
+    <Field.Root
       mb={1}
       {...chakraProps}
-      isDisabled={disabled || readonly}
-      isRequired={required}
-      isReadOnly={readonly}
-      isInvalid={rawErrors && rawErrors.length > 0}
+      disabled={disabled || readonly}
+      required={required}
+      readOnly={readonly}
+      invalid={rawErrors && rawErrors.length > 0}
     >
       {labelValue(
-        <FormLabel htmlFor={id} id={`${id}-label`}>
+        <Field.Label htmlFor={id} id={`${id}-label`}>
           {label}
-        </FormLabel>,
+        </Field.Label>,
         hideLabel || !label
       )}
       <CheckboxGroup
-        onChange={(option) => onChange(enumOptionsValueForIndex<S>(option, enumOptions, emptyValue))}
+        onChange={(option: FormEvent<HTMLInputElement>) =>
+          // @ts-expect-error TODO: Fix type error
+          onChange(enumOptionsValueForIndex<S>(option.target.value, enumOptions, emptyValue))
+        }
         defaultValue={selectedIndexes}
         aria-describedby={ariaDescribedByIds<T>(id)}
       >
@@ -88,6 +92,6 @@ export default function CheckboxesWidget<
             })}
         </Stack>
       </CheckboxGroup>
-    </FormControl>
+    </Field.Root>
   );
 }

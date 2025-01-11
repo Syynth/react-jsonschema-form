@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Box, ButtonGroup, HStack } from '@chakra-ui/react';
+import { Box, Group, HStack } from '@chakra-ui/react';
 import { ArrayFieldTemplateItemType, FormContextType, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
 
 export default function ArrayFieldItemTemplate<
@@ -37,7 +37,7 @@ export default function ArrayFieldItemTemplate<
       <Box w='100%'>{children}</Box>
       {hasToolbar && (
         <Box>
-          <ButtonGroup isAttached mb={1}>
+          <Group attached mb={1}>
             {(hasMoveUp || hasMoveDown) && (
               <MoveUpButton
                 disabled={disabled || readonly || !hasMoveUp}
@@ -70,7 +70,7 @@ export default function ArrayFieldItemTemplate<
                 registry={registry}
               />
             )}
-          </ButtonGroup>
+          </Group>
         </Box>
       )}
     </HStack>

@@ -1,5 +1,5 @@
 import { FocusEvent } from 'react';
-import { FormControl, FormLabel, Slider, SliderFilledTrack, SliderThumb, SliderTrack } from '@chakra-ui/react';
+import { Field, Slider, SliderThumb, SliderTrack } from '@chakra-ui/react';
 import {
   ariaDescribedByIds,
   FormContextType,
@@ -34,9 +34,9 @@ export default function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSc
   const _onFocus = ({ target }: FocusEvent<HTMLInputElement>) => onFocus(id, target && target.value);
 
   return (
-    <FormControl mb={1} {...chakraProps}>
-      {labelValue(<FormLabel htmlFor={id}>{label}</FormLabel>, hideLabel || !label)}
-      <Slider
+    <Field.Root mb={1} {...chakraProps}>
+      {labelValue(<Field.Label htmlFor={id}>{label}</Field.Label>, hideLabel || !label)}
+      <Slider.Root
         {...sliderWidgetProps}
         id={id}
         name={id}
@@ -47,10 +47,10 @@ export default function RangeWidget<T = any, S extends StrictRJSFSchema = RJSFSc
         aria-describedby={ariaDescribedByIds<T>(id)}
       >
         <SliderTrack>
-          <SliderFilledTrack />
+          <Slider.Track />
         </SliderTrack>
         <SliderThumb />
-      </Slider>
-    </FormControl>
+      </Slider.Root>
+    </Field.Root>
   );
 }

@@ -1,5 +1,5 @@
 import { FocusEvent } from 'react';
-import { FormControl, FormLabel, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import { Field, RadioGroup, Stack } from '@chakra-ui/react';
 import {
   ariaDescribedByIds,
   enumOptionsIndexForValue,
@@ -11,6 +11,7 @@ import {
   StrictRJSFSchema,
   WidgetProps,
 } from '@rjsf/utils';
+// import { Radio } from '../snippets/radio';
 import { getChakra } from '../utils';
 
 export default function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSchema, F extends FormContextType = any>({
@@ -40,14 +41,14 @@ export default function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSc
   const selectedIndex = (enumOptionsIndexForValue<S>(value, enumOptions) as string) ?? null;
 
   return (
-    <FormControl mb={1} {...chakraProps} isDisabled={disabled || readonly} isRequired={required} isReadOnly={readonly}>
+    <Field.Root mb={1} {...chakraProps} disabled={disabled || readonly} required={required} readOnly={readonly}>
       {labelValue(
-        <FormLabel htmlFor={id} id={`${id}-label`}>
+        <Field.Label htmlFor={id} id={`${id}-label`}>
           {label}
-        </FormLabel>,
+        </Field.Label>,
         hideLabel || !label
       )}
-      <RadioGroup
+      <RadioGroup.Root
         onChange={_onChange}
         onBlur={_onBlur}
         onFocus={_onFocus}
@@ -61,18 +62,18 @@ export default function RadioWidget<T = any, S extends StrictRJSFSchema = RJSFSc
               const itemDisabled = Array.isArray(enumDisabled) && enumDisabled.indexOf(option.value) !== -1;
 
               return (
-                <Radio
+                <RadioGroup.Item
                   value={String(index)}
                   key={index}
                   id={optionId(id, index)}
                   disabled={disabled || itemDisabled || readonly}
                 >
                   {option.label}
-                </Radio>
+                </RadioGroup.Item>
               );
             })}
         </Stack>
-      </RadioGroup>
-    </FormControl>
+      </RadioGroup.Root>
+    </Field.Root>
   );
 }

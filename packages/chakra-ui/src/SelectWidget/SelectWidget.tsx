@@ -1,5 +1,5 @@
 import { FocusEvent, useMemo } from 'react';
-import { FormControl, FormLabel } from '@chakra-ui/react';
+import { Field } from '@chakra-ui/react';
 import {
   ariaDescribedByIds,
   EnumOptionsType,
@@ -100,7 +100,7 @@ export default function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFS
       };
 
   return (
-    <FormControl
+    <Field.Root
       mb={1}
       {...chakraProps}
       isDisabled={disabled || readonly}
@@ -109,9 +109,9 @@ export default function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFS
       isInvalid={rawErrors && rawErrors.length > 0}
     >
       {labelValue(
-        <FormLabel htmlFor={id} id={`${id}-label`}>
+        <Field.Label htmlFor={id} id={`${id}-label`}>
           {label}
-        </FormLabel>,
+        </Field.Label>,
         hideLabel || !label
       )}
       <Select
@@ -128,6 +128,6 @@ export default function SelectWidget<T = any, S extends StrictRJSFSchema = RJSFS
         value={formValue}
         aria-describedby={ariaDescribedByIds<T>(id)}
       />
-    </FormControl>
+    </Field.Root>
   );
 }

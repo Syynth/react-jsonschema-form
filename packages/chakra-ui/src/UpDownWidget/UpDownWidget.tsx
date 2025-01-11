@@ -1,13 +1,5 @@
 import { FocusEvent } from 'react';
-import {
-  NumberInput,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInputField,
-  NumberInputStepper,
-  FormControl,
-  FormLabel,
-} from '@chakra-ui/react';
+import { NumberInput, Field } from '@chakra-ui/react';
 import {
   ariaDescribedByIds,
   labelValue,
@@ -31,28 +23,28 @@ export default function UpDownWidget<T = any, S extends StrictRJSFSchema = RJSFS
   const _onFocus = ({ target }: FocusEvent<HTMLInputElement | any>) => onFocus(id, target && target.value);
 
   return (
-    <FormControl
+    <Field.Root
       mb={1}
       {...chakraProps}
-      isDisabled={disabled || readonly}
-      isRequired={required}
-      isReadOnly={readonly}
-      isInvalid={rawErrors && rawErrors.length > 0}
+      disabled={disabled || readonly}
+      required={required}
+      readOnly={readonly}
+      invalid={rawErrors && rawErrors.length > 0}
     >
-      {labelValue(<FormLabel htmlFor={id}>{label}</FormLabel>, hideLabel || !label)}
-      <NumberInput
+      {labelValue(<Field.Label htmlFor={id}>{label}</Field.Label>, hideLabel || !label)}
+      <NumberInput.Root
         value={value ?? ''}
         onChange={_onChange}
         onBlur={_onBlur}
         onFocus={_onFocus}
         aria-describedby={ariaDescribedByIds<T>(id)}
       >
-        <NumberInputField id={id} name={id} />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
-    </FormControl>
+        <NumberInput.Input id={id} name={id} />
+        <NumberInput.Control>
+          <NumberInput.IncrementTrigger />
+          <NumberInput.DecrementTrigger />
+        </NumberInput.Control>
+      </NumberInput.Root>
+    </Field.Root>
   );
 }

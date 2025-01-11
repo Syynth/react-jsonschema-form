@@ -13,7 +13,7 @@ export default function SubmitButton<
 
   return (
     <Box marginTop={3}>
-      <Button type='submit' variant='solid' {...submitButtonProps}>
+      <Button type='submit' variant='outline' {...submitButtonProps}>
         {submitText}
       </Button>
     </Box>

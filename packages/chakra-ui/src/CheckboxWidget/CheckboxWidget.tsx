@@ -1,5 +1,6 @@
 import { ChangeEvent, FocusEvent } from 'react';
-import { Checkbox, FormControl, Text } from '@chakra-ui/react';
+import { Text, Field } from '@chakra-ui/react';
+import { Checkbox } from '../snippets/checkbox';
 import {
   ariaDescribedByIds,
   descriptionId,
@@ -50,7 +51,7 @@ export default function CheckboxWidget<
   const _onFocus = ({ target }: FocusEvent<HTMLInputElement | any>) => onFocus(id, target && target.value);
 
   return (
-    <FormControl mb={1} {...chakraProps} isRequired={required}>
+    <Field.Root mb={1} {...chakraProps} required={required}>
       {!hideLabel && !!description && (
         <DescriptionFieldTemplate
           id={descriptionId<T>(id)}
@@ -72,6 +73,6 @@ export default function CheckboxWidget<
       >
         {labelValue(<Text>{label}</Text>, hideLabel || !label)}
       </Checkbox>
-    </FormControl>
+    </Field.Root>
   );
 }

@@ -6,7 +6,7 @@ import {
   RJSFSchema,
   StrictRJSFSchema,
 } from '@rjsf/utils';
-import { Text, FormControl } from '@chakra-ui/react';
+import { Text, Field } from '@chakra-ui/react';
 
 export default function FieldTemplate<
   T = any,
@@ -61,12 +61,12 @@ export default function FieldTemplate<
       uiSchema={uiSchema}
       registry={registry}
     >
-      <FormControl isRequired={required} isInvalid={rawErrors && rawErrors.length > 0}>
+      <Field.Root required={required} invalid={rawErrors && rawErrors.length > 0}>
         {children}
         {displayLabel && rawDescription ? <Text mt={2}>{description}</Text> : null}
         {errors}
         {help}
-      </FormControl>
+      </Field.Root>
     </WrapIfAdditionalTemplate>
   );
 }
